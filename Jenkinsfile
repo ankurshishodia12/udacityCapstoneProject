@@ -19,7 +19,7 @@ pipeline {
     stage('Push Docker Image') {
               steps {
                   withDockerRegistry([url: '', credentialsId: 'dockerHub']) {
-                      sh 'docker tag udacityCapstoneProject ankurshishodia12/udacity-capstone-project'
+                      sh 'docker tag udacity-capstone-project ankurshishodia12/udacity-capstone-project'
                       sh 'docker push ankurshishodia12/udacity-capstone-project'
                   }
               }
