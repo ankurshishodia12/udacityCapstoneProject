@@ -23,7 +23,23 @@ pipeline {
                       sh 'docker push ankurshishodia12/udacity-capstone-project'
                   }
               }
-         }    
+         } 
+    stage('Deploying') {
+              steps{
+                  echo 'Deploying to AWS...'
+                  withAWS(credentials: 'aws-static', region: 'us-west-2') {
+                      sh "aws eks --region us-west-2 update-kubeconfig --name udacitycapstonecluster"
+                      sh "kubectl config use-context arn:aws:eks:us-west-2:988212813982:cluster/udacitycapstonecluster"
+                      sh "kubectl set image deployments/udacity-capstone-project udacity-capstone-project=ankurshishodia12/udacity-capstone-project:latest"
+                      sh "kubectl apply -f deployment/deployment.yml"
+                      sh "kubectl get nodes"
+                      sh "kubectl get deployment"
+                      sh "kubectl get pod -o wide"
+                      sh "kubectl get service/udacity-capstone-project"
+                  }
+              }
+        }     
+
 
 
     }
