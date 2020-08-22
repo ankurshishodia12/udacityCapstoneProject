@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: udacity-capstone-project
+  labels:
+    app: udacity-capstone-project
+spec:
+  type: LoadBalancer
+  selector:
+    app: udacity-capstone-project
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30000
+      protocol: TCP
