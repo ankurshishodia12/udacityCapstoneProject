@@ -13,11 +13,13 @@ pipeline {
          }
     stage('Build Docker Image') {
               steps {
+                  echo 'Building Docker Image...'
                   sh 'docker build -t udacity-capstone-project .'
               }
         }
     stage('Push Docker Image') {
               steps {
+                  echo 'Pushing Docker Image...'
                   withDockerRegistry([url: '', credentialsId: 'dockerHub']) {
                       sh 'docker tag udacity-capstone-project ankurshishodia12/udacity-capstone-project'
                       sh 'docker push ankurshishodia12/udacity-capstone-project'
